@@ -1,1 +1,5 @@
+Bundle-Version: 1.0.0
 Export-Package: it.cbmz.raspo.api
+Bundle-Activator: it.cbmz.raspo.api.KarafWebSocketActivator
+Web-ContextPath: /cloud-websocket
+-includeresource: C:/java/raspo/raspo-wec-socket/src/main/webapp

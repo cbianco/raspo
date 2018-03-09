@@ -33,8 +33,6 @@ dependencies {
 
 subprojects {
     if (plugins.hasPlugin('biz.aQute.bnd')) {
-       jar {
-           bndWorkspace
-       }
+
     }
 }
