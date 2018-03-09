@@ -29,3 +29,12 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 */
+
+
+subprojects {
+    if (plugins.hasPlugin('biz.aQute.bnd')) {
+       jar {
+           bndWorkspace
+       }
+    }
+}
