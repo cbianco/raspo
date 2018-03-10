@@ -29,3 +29,4 @@ hs_err_pid*
 **/generated
 **/bin
 .gradle
+!**/gradle-wrapper.jar

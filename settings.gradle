@@ -9,4 +9,6 @@ buildscript {
 }
 apply plugin: 'biz.aQute.bnd.workspace'
 include 'raspo-wec-socket'
+include 'echo-api'
+include 'echo-impl'
 

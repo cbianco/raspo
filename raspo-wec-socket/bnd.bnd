@@ -1,5 +1,10 @@
 Bundle-Version: 1.0.0
 Export-Package: it.cbmz.raspo.api
-Bundle-Activator: it.cbmz.raspo.api.KarafWebSocketActivator
+Service-Component: *
+-dsannotations: *
+-includeresource: \
+  src/main/resources, \
+  WEB-INF/=src/WEB-INF/web.xml,\
+  /=src/WEB-INF/index.jsp
 Web-ContextPath: /cloud-websocket
--includeresource: C:/java/raspo/raspo-wec-socket/src/main/webapp
+Bundle-ClassPath: WEB-INF/classes
