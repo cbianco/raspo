@@ -1,0 +1,14 @@
+Bundle-Version: 1.0.0
+Bundle-Activator: \
+    it.cbmz.raspo.internal.core.Activator
+Service-Component: *
+-dsannotations: *
+Bundle-ClassPath: \
+    .,\
+    lib/kafka-client.jar,\
+    lib/iz4-java.jar
+-includeresource: \
+     lib/kafka-client.jar = lib/kafka-clients-1.0.1.jar,\
+     lib/iz4-java.jar = lib/lz4-java-1.4.1.jar,\
+     src/main/resources,\
+     /it=bin/it
