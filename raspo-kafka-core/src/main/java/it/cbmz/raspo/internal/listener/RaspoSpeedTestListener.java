@@ -7,10 +7,14 @@ import it.cbmz.raspo.internal.kafka.message.Message;
 import it.cbmz.raspo.internal.util.Constants;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 @Component(immediate = true)
 public class RaspoSpeedTestListener implements ISpeedTestListener {
@@ -29,11 +33,16 @@ public class RaspoSpeedTestListener implements ISpeedTestListener {
 	public void onCompletion(SpeedTestReport report) {
 
 		Message speedTest =
-			Message.of(Constants.SPEED_TEST,
-				report.getTransferRateOctet().toString());
+			Message.of(Constants.SPEED_TEST, "");
 
-		_producer.send(new ProducerRecord<>(
-			_raspoProducerConfiguration.topic(), speedTest.toJSON())
+		speedTest.add("dw_speed", report.getTransferRateOctet().toString());
+
+		_producer.flush();
+
+		CompletableFuture.supplyAsync(() ->
+			_producer.send(new ProducerRecord<>(
+				_raspoProducerConfiguration.topic(), speedTest.toJSON())
+			)
 		);
 	}
 

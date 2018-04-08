@@ -66,7 +66,7 @@ public class Message {
 
 	public String toJSON() {
 		try {
-			return mapper.writeValueAsString(message);
+			return mapper.writeValueAsString(this);
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException(e);
 		}

@@ -2,6 +2,6 @@ package it.cbmz.raspo.internal.util;
 
 public interface Constants {
 
-	String SPEED_TEST = "speedTest";
+	String SPEED_TEST = "speedTestClient";
 
 }
