@@ -33,6 +33,23 @@ dependencies {
 
 subprojects {
     if (plugins.hasPlugin('biz.aQute.bnd')) {
-        println it
+
     }
+
+    if(plugins.hasPlugin("java")) {
+
+        sourceSets {
+
+            main {
+                java {
+                    srcDirs = ['src/main/java']
+                }
+                resources {
+                    srcDirs = ['src/main/resources']
+                }
+
+            }
+        }
+    }
+
 }
