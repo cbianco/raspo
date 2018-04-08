@@ -6,9 +6,15 @@ Service-Component: *
 Bundle-ClassPath: \
     .,\
     lib/kafka-client.jar,\
-    lib/iz4-java.jar
+    lib/iz4-java.jar,\
+    lib/commons-net.jar,\
+    lib/http-endec.jar,\
+    lib/jspeedtest.jar
 -includeresource: \
      lib/kafka-client.jar = lib/kafka-clients-1.0.1.jar,\
      lib/iz4-java.jar = lib/lz4-java-1.4.1.jar,\
+     lib/commons-net.jar = lib/commons-net-3.6.jar,\
+     lib/http-endec.jar = lib/http-endec-1.04.jar,\
+     lib/jspeedtest.jar = lib/jspeedtest-1.31.3.jar,\
      src/main/resources,\
      /it=bin/it

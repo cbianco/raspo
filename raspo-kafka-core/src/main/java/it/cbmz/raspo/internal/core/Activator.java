@@ -2,7 +2,6 @@ package it.cbmz.raspo.internal.core;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
-import org.apache.kafka.clients.producer.ProducerConfig;
 import org.osgi.framework.*;
 import org.osgi.framework.wiring.BundleWiring;
 
@@ -27,8 +26,7 @@ public class Activator implements BundleActivator {
 
 		Thread thread = Thread.currentThread();
 
-		ClassLoader currentClassLoader =
-			thread.getContextClassLoader();
+		ClassLoader currentClassLoader = thread.getContextClassLoader();
 
 		try {
 			BundleWiring adapt = bundle.adapt(BundleWiring.class);
@@ -46,9 +44,6 @@ public class Activator implements BundleActivator {
 			thread.setContextClassLoader(currentClassLoader);
 		}
 
-
-
-
 	}
 
 	@Override
@@ -59,7 +54,9 @@ public class Activator implements BundleActivator {
 
 		Producer service = context.getService(reference);
 
-		service.close();
+		if(service != null) {
+			service.close();
+		}
 
 		try {
 			producerServiceRegistration.unregister();
