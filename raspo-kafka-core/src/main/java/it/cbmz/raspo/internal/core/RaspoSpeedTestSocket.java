@@ -4,9 +4,9 @@ import fr.bmartel.speedtest.SpeedTestSocket;
 import fr.bmartel.speedtest.inter.ISpeedTestListener;
 import org.osgi.service.component.annotations.*;
 
-@Component(
+/*@Component(
 	immediate = true
-)
+)*/
 //@Designate(ocd = RaspoSpeedTestConfiguration.class)
 public class RaspoSpeedTestSocket extends SpeedTestSocket {
 

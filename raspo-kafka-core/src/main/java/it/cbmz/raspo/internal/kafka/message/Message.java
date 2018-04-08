@@ -1,6 +1,9 @@
 package it.cbmz.raspo.internal.kafka.message;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -11,7 +14,6 @@ import java.util.Map;
 public class Message {
 
 	public String type;
-	public String message;
 	private Map<String, String> properties;
 
 	@JsonAnyGetter
@@ -26,16 +28,9 @@ public class Message {
 
 	@JsonCreator
 	public Message(
-		@JsonProperty("type") String type,
-		@JsonProperty("message") String message) {
+		@JsonProperty("type") String type) {
 		this.type = type;
-		this.message = message;
 		this.properties = new HashMap<>();
-	}
-
-	@JsonIgnore
-	public String getMessage(){
-		return message;
 	}
 
 	@Override
@@ -43,7 +38,6 @@ public class Message {
 
 		return "Message{" +
 			"type='" + type + '\'' +
-			", message='" + message + '\'' +
 			", properties=" + properties +
 			'}';
 	}
@@ -72,10 +66,8 @@ public class Message {
 		}
 	}
 
-	public static Message of(String type, String message) {
-		return toMessage(
-			String.format(
-				"{\"type\":\"%s\",\"message\":\"%s\"}", type, message));
+	public static Message of(String type) {
+		return toMessage(String.format("{\"type\":\"%s\"}", type));
 	}
 
 	private static final ObjectMapper mapper = new ObjectMapper();
