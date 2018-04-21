@@ -4,7 +4,9 @@ import it.cbmz.raspo.internal.kafka.message.Message;
 import it.cbmz.raspo.internal.util.Constants;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
@@ -20,32 +22,33 @@ import java.util.concurrent.CompletableFuture;
 	},
 	service = EventHandler.class
 )
-public class SendMessageHandler extends BaseSpeedTestHandler {
+public class SendMessageHandler extends BasePipelineHandler {
+
+	@interface Config {
+		String topic() default "client";
+	}
 
 	@Override
-	public void handleEvent(Event event) {
+	void doHandleEvent(Event event) throws Exception {
 
-		try {
+		Message message = getMessage(event);
 
-			Message message = getMessage(event);
+		_producer.flush();
 
-			_producer.flush();
-
-			CompletableFuture.supplyAsync(() ->
-				_producer.send(new ProducerRecord<>(
-					"client", message.toJSON())
-				)
-			);
-
-		}
-		catch (Throwable e) {
-			onError(e);
-		}
+		CompletableFuture.supplyAsync(() ->
+			_producer.send(new ProducerRecord<>(
+				"client", message.toJSON())
+			)
+		);
 
 	}
 
-	@Reference
-	private Producer<String, String> _producer;
+	@Activate
+	@Modified
+	protected void update(SendMessageHandler.Config config){
+		_topic = config.topic();
+	}
+
 
 	@Override
 	@Reference
@@ -53,5 +56,9 @@ public class SendMessageHandler extends BaseSpeedTestHandler {
 		super.setEventAdmin(eventAdmin);
 	}
 
+	@Reference
+	private Producer<String, String> _producer;
+
+	private String _topic;
 
 }

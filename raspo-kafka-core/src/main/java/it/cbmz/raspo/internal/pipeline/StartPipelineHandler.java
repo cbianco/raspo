@@ -16,13 +16,12 @@ import org.osgi.service.event.EventHandler;
 	},
 	service = EventHandler.class
 )
-public class StartSpeedTestHandler extends BaseSpeedTestHandler {
+public class StartPipelineHandler extends BasePipelineHandler {
 
 	@Override
-	public void handleEvent(Event event) {
+	void doHandleEvent(Event event) throws Exception {
 
-		Message message =
-			Message.of(Constants.Command.SPEED_TEST);
+		Message message = Message.of(Constants.Command.SPEED_TEST);
 
 		_eventAdmin.sendEvent(
 			new Event(
