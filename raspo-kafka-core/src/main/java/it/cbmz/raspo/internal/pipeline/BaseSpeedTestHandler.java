@@ -3,7 +3,6 @@ package it.cbmz.raspo.internal.pipeline;
 import fr.bmartel.speedtest.SpeedTestSocket;
 import it.cbmz.raspo.internal.kafka.message.Message;
 import it.cbmz.raspo.internal.listener.CFSpeedListener;
-import it.cbmz.raspo.internal.util.Constants;
 import org.osgi.service.event.Event;
 
 import java.util.concurrent.CompletableFuture;
@@ -38,9 +37,11 @@ public abstract class BaseSpeedTestHandler extends BasePipelineHandler {
 
 		speedTestSocket.closeSocket();
 
-		sendMessage(Constants.Handler.UPLOAD_HANDLER, message);
+		sendMessage(topicToSend(), message);
 
 	}
+
+	abstract String topicToSend();
 
 	abstract Type addSpeedTestUrl(SpeedTestSocket speedTestSocket);
 

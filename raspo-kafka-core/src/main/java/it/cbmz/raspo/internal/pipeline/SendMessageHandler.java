@@ -2,6 +2,7 @@ package it.cbmz.raspo.internal.pipeline;
 
 import it.cbmz.raspo.internal.kafka.message.Message;
 import it.cbmz.raspo.internal.util.Constants;
+import it.cbmz.raspo.internal.util.MacAddress;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.osgi.service.component.annotations.Activate;
@@ -33,11 +34,13 @@ public class SendMessageHandler extends BasePipelineHandler {
 
 		Message message = getMessage(event);
 
+		message.add("mac", MacAddress.macAddress());
+
 		_producer.flush();
 
 		CompletableFuture.supplyAsync(() ->
 			_producer.send(new ProducerRecord<>(
-				"client", message.toJSON())
+				_topic, message.toJSON())
 			)
 		);
 

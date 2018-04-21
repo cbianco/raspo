@@ -1,6 +1,7 @@
 package it.cbmz.raspo.internal.pipeline;
 
 import fr.bmartel.speedtest.SpeedTestSocket;
+import it.cbmz.raspo.internal.util.Constants;
 import it.cbmz.raspo.internal.util.Constants.Handler;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -31,6 +32,10 @@ public class UploadHandler extends BaseSpeedTestHandler {
 		_fileSize = config.fileSize();
 	}
 
+	@Override
+	String topicToSend() {
+		return Handler.SEND_HANDLER;
+	}
 
 	@Override
 	Type addSpeedTestUrl(SpeedTestSocket speedTestSocket) {

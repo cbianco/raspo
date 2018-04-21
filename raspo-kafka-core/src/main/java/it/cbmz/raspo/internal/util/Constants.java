@@ -6,6 +6,8 @@ public interface Constants {
 
 		String SPEED_TEST = "speedTestClient";
 
+		String PING = "pingClient";
+
 	}
 
 	interface Handler {
@@ -18,6 +20,14 @@ public interface Constants {
 		interface EventKey {
 			String MESSAGE_KEY = "message";
 			String EXCEPTION_KEY = "exception";
+		}
+
+	}
+
+	interface Message {
+
+		interface Key {
+
 		}
 
 	}

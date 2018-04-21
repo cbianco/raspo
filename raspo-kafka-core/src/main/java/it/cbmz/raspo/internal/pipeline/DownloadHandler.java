@@ -29,12 +29,18 @@ public class DownloadHandler extends BaseSpeedTestHandler {
 		_url = config.url();
 	}
 
+
 	@Override
 	Type addSpeedTestUrl(SpeedTestSocket speedTestSocket) {
 
 		speedTestSocket.startDownload(_url);
 
 		return Type.DOWNLOAD;
+	}
+
+	@Override
+	String topicToSend() {
+		return Constants.Handler.UPLOAD_HANDLER;
 	}
 
 

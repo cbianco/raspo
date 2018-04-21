@@ -2,6 +2,7 @@ package it.cbmz.raspo.internal.pipeline;
 
 import it.cbmz.raspo.internal.kafka.message.Message;
 import it.cbmz.raspo.internal.util.Constants;
+import it.cbmz.raspo.internal.util.MacAddress;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.event.Event;
@@ -21,14 +22,14 @@ public class StartPipelineHandler extends BasePipelineHandler {
 	@Override
 	void doHandleEvent(Event event) throws Exception {
 
-		Message message = Message.of(Constants.Command.SPEED_TEST);
+		String command =(String)event.getProperty("command");
 
-		_eventAdmin.sendEvent(
-			new Event(
-				Constants.Handler.DOWNLOAD_HANDLER,
-				singletonMap(Constants.Handler.EventKey.MESSAGE_KEY, message)
-			)
-		);
+		String topic =(String)event.getProperty("topic");
+
+		Message message = Message.of(command);
+
+		sendMessage(topic, message);
+
 	}
 
 	@Override
