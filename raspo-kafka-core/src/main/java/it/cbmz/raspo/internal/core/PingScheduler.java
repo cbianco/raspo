@@ -22,7 +22,6 @@ public class PingScheduler implements Runnable {
 
 	@Override
 	public void run() {
-
 		Map<String, Object> map = new HashMap<>(2, 2);
 
 		map.put("command", Constants.Command.PING);

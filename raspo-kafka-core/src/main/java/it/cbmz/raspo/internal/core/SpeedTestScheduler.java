@@ -13,12 +13,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component(
-	immediate = true,
+	immediate = true/**,
 	property = {
 		"scheduler.period:Long=600",
 		"scheduler.concurrent:Boolean=false",
 		"scheduler.name=speedTest"
-	}
+	}**/
 )
 public class SpeedTestScheduler implements Runnable {
 

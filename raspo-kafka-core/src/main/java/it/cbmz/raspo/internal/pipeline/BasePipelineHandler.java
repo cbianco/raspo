@@ -7,6 +7,7 @@ import org.osgi.service.event.EventAdmin;
 import org.osgi.service.event.EventHandler;
 import it.cbmz.raspo.internal.util.Constants.Handler.EventKey;
 import it.cbmz.raspo.internal.util.Constants.Handler;
+import it.cbmz.raspo.internal.util.LogUtil;
 
 import java.util.Collections;
 import java.util.Map;
@@ -50,6 +51,8 @@ public abstract class BasePipelineHandler implements EventHandler {
 		_eventAdmin.sendEvent(
 			new Event(
 				topic, singletonMap(EventKey.MESSAGE_KEY, message.toJSON())));
+		LogUtil.info("Message event sent:\n ["+message.toJSON()+"]");
+		
 	}
 
 	final void onError(Throwable e) {
